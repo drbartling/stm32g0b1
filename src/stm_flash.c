@@ -1,15 +1,14 @@
-#include "stm_flash.h"
+#include "stm32g0b1/stm_flash.h"
 
-#include "stm32g0b1.h"
+#include "stm32g0b1/stm32g0b1.h"
 
 #include <stdbool.h>
-#include <stdio.h>
 #include <string.h>
 
 static bool         FLASH_is_busy(void);
 static void         FLASH_clear_errors(void);
 static bool         FLASH_write_double_word(void *, uint64_t);
-static FLASH_bker_t FLASH_bank_from_page(int);
+static FLASH_bker_t FLASH_bank_from_page(int16_t);
 
 #define FLASH_clear_status (1U)
 
@@ -20,8 +19,8 @@ FLASH_edit_page(int32_t address, void *data, int32_t size)
         return;
     }
 
-    int start_page = FLASH_page_number_from_address(address);
-    int end_page   = FLASH_page_number_from_address(address + size - 1);
+    int16_t start_page = FLASH_page_number_from_address(address);
+    int16_t end_page   = FLASH_page_number_from_address(address + size - 1);
     if (start_page != end_page) {
         return;
     }
@@ -30,8 +29,8 @@ FLASH_edit_page(int32_t address, void *data, int32_t size)
     int32_t offset       = address - page_address;
 
     uint8_t page_data[STFLASH_PAGE_SIZE] = {0};
-    memcpy(page_data, (void *)page_address, STFLASH_PAGE_SIZE);
-    memcpy(page_data + offset, data, size);
+    memcpy(page_data, (void *)(uintptr_t)page_address, STFLASH_PAGE_SIZE);
+    memcpy(page_data + offset, data, (size_t)size);
 
     FLASH_erase_page(start_page);
     FLASH_write_data_no_erase(page_address, page_data, STFLASH_PAGE_SIZE);
@@ -50,28 +49,30 @@ FLASH_write_page(int32_t address, void const *data)
         return STM_FLASH->sr;
     }
 
-    int page_number = FLASH_page_number_from_address(address);
+    int16_t page_number = FLASH_page_number_from_address(address);
 
     FLASH_erase_page(page_number);
     return FLASH_write_data_no_erase(address, data, STFLASH_PAGE_SIZE);
 }
 
-int
+int16_t
 FLASH_page_number_from_address(int32_t address)
 {
     if (STFLASH_BANK1_START <= address && address < STFLASH_BANK1_END) {
-        return (address - STFLASH_BANK1_START) / (STFLASH_PAGE_SIZE)
-               + STFLASH_BANK1_START_PAGE;
+        int32_t page = (address - STFLASH_BANK1_START) / (STFLASH_PAGE_SIZE)
+                       + STFLASH_BANK1_START_PAGE;
+        return (int16_t)page;
     }
     if (STFLASH_BANK2_START <= address && address < STFLASH_BANK2_END) {
-        return ((address - STFLASH_BANK2_START) / (STFLASH_PAGE_SIZE))
-               + STFLASH_BANK2_START_PAGE;
+        int32_t page = ((address - STFLASH_BANK2_START) / (STFLASH_PAGE_SIZE))
+                       + STFLASH_BANK2_START_PAGE;
+        return (int16_t)page;
     }
     return -1;
 }
 
 int32_t
-FLASH_address_from_page_number(int page_number)
+FLASH_address_from_page_number(int16_t page_number)
 {
     if (STFLASH_BANK1_START_PAGE <= page_number
         && page_number < STFLASH_BANK1_END_PAGE) {
@@ -87,14 +88,14 @@ FLASH_address_from_page_number(int page_number)
 }
 
 void
-FLASH_erase_page(int page_number)
+FLASH_erase_page(int16_t page_number)
 {
     FLASH_bker_t bank = FLASH_bank_from_page(page_number);
     while (FLASH_is_busy()) {
         // Wait for previous flash operation to complete
     }
     FLASH_clear_errors();
-    STM_FLASH->cr.pnb  = page_number;
+    STM_FLASH->cr.pnb  = page_number & 0x4F;
     STM_FLASH->cr.per  = 1;
     STM_FLASH->cr.bker = bank;
     STM_FLASH->cr.strt = 1;
@@ -107,7 +108,7 @@ FLASH_erase_page(int page_number)
 }
 
 static FLASH_bker_t
-FLASH_bank_from_page(int page)
+FLASH_bank_from_page(int16_t page)
 {
     if (256 > page) {
         return FLASH_bker_bank1;
@@ -119,7 +120,7 @@ FLASH_sr_t
 FLASH_write_data_no_erase(int32_t address, void const *data, int32_t size)
 {
     uint64_t const *double_words      = data;
-    int32_t         double_word_count = size / sizeof(uint64_t);
+    int32_t         double_word_count = size / (int32_t)sizeof(uint64_t);
     uint64_t       *destination       = (void *)address;
     for (int i = 0; i < double_word_count; i++) {
         if (FLASH_write_double_word(&destination[i], double_words[i])) {
@@ -158,7 +159,7 @@ FLASH_write_row(int32_t address, void *data)
     int32_t *src   = data;
     int32_t *dest  = (void *)address;
     int32_t  size  = 256;
-    int32_t  words = size / sizeof(int32_t);
+    int32_t  words = size / (int32_t)sizeof(int32_t);
 
     while (FLASH_is_busy()) {
         // Wait for previous flash operation to complete

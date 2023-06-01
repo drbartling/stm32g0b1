@@ -1,6 +1,6 @@
-#include "stm_vrefbuf.h"
+#include "stm32g0b1/stm_vrefbuf.h"
 
-#include "stm32g0b1.h"
+#include "stm32g0b1/stm32g0b1.h"
 
 void
 VREFBUF_init(void)

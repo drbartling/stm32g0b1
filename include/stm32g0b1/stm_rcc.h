@@ -89,6 +89,7 @@ typedef union {
 } RCC_iopenr_t;
 STATIC_ASSERT_TYPE_SIZE(RCC_iopenr_t, sizeof(uint32_t));
 
+// rm0444 rev 5 pp198-201
 typedef union {
     struct {
         uint32_t tim2en : 1;
@@ -108,7 +109,7 @@ typedef union {
         uint32_t spi2en : 1;
         uint32_t spi3en : 1;
         uint32_t crsen : 1;
-        uint32_t usar2en : 1;
+        uint32_t usart2en : 1;
         uint32_t usart3en : 1;
         uint32_t usart4en : 1;
         uint32_t lpuart1en : 1;

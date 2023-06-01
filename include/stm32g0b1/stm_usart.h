@@ -249,7 +249,8 @@ typedef struct {
     uint32_t volatile rqr;
     USART_isr_t volatile isr;
     USART_icr_t volatile icr;
-    uint32_t volatile rdr;
+    uint8_t volatile rdr;
+    uint8_t volatile reserved[3];
     uint32_t volatile tdr;
     uint32_t volatile presc;
 } USART_peripheral_registers_t;

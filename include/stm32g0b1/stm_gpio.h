@@ -279,6 +279,8 @@ typedef struct {
     volatile stm_gpio_afr_reg_t          afr;
     volatile stm_gpio_brr_reg_t          brr;
 } stm_gpio_port_t;
+STATIC_ASSERT_MEMBER_OFFSET(stm_gpio_port_t, bsrr, 0x18);
+STATIC_ASSERT_MEMBER_OFFSET(stm_gpio_port_t, brr, 0x28);
 
 #ifdef __cplusplus
 }

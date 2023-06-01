@@ -4,25 +4,25 @@
 extern "C" {
 #endif
 
-#include "stm_adc.h"
-#include "stm_flash.h"
-#include "stm_gp_timer.h"
-#include "stm_gpio.h"
-#include "stm_nvic.h"
-#include "stm_rcc.h"
-#include "stm_scb.h"
-#include "stm_spi.h"
-#include "stm_usart.h"
-#include "stm_vrefbuf.h"
-#include "uart.h"
+#include "stm32g0b1/stm_adc.h"
+#include "stm32g0b1/stm_flash.h"
+#include "stm32g0b1/stm_gp_timer.h"
+#include "stm32g0b1/stm_gpio.h"
+#include "stm32g0b1/stm_nvic.h"
+#include "stm32g0b1/stm_rcc.h"
+#include "stm32g0b1/stm_scb.h"
+#include "stm32g0b1/stm_spi.h"
+#include "stm32g0b1/stm_usart.h"
+#include "stm32g0b1/stm_vrefbuf.h"
+#include "stm32g0b1/uart.h"
 
 #include <stdint.h>
 
 #define STFLASH_BANK1_START 0x08000000
-#define STFLASH_BANK1_SIZE (128 * 1024)
+#define STFLASH_BANK1_SIZE (256 * 1024)
 #define STFLASH_BANK1_END (STFLASH_BANK1_START + STFLASH_BANK1_SIZE)
 #define STFLASH_BANK1_START_PAGE 0
-#define STFLASH_BANK1_PAGES 64
+#define STFLASH_BANK1_PAGES 128
 #define STFLASH_BANK1_END_PAGE (STFLASH_BANK1_START_PAGE + STFLASH_BANK1_PAGES)
 
 #define STFLASH_BANK2_START (STFLASH_BANK1_START + STFLASH_BANK1_SIZE)
@@ -33,6 +33,10 @@ extern "C" {
 #define STFLASH_BANK2_END_PAGE (STFLASH_BANK2_START_PAGE + STFLASH_BANK2_PAGES)
 
 #define STFLASH_PAGE_SIZE (2 * 1024)
+
+#define STSRAM_BASE (0x20000000)
+#define STSRAM_SIZE (144 * 1024)
+#define STSRAM_END (STSRAM_BASE + STSRAM_SIZE)
 
 extern volatile NVIC_Type *NVIC_registers;
 extern volatile SCB_Type  *SCB_registers;

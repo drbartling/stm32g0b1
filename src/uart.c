@@ -1,6 +1,6 @@
-#include "uart.h"
+#include "stm32g0b1/uart.h"
 
-#include "stm32g0b1.h"
+#include "stm32g0b1/stm32g0b1.h"
 
 #include <stdbool.h>
 #include <string.h>
@@ -13,7 +13,7 @@ static bool UART_rx_buf_is_empty(void);
 static bool UART_rx_interrupt_detected(void);
 static bool UART_tx_interrupt_detected(void);
 static void UART_enable_interrupts(void);
-static void UART_enable_uart(void);
+static void UART_enable_uart(int32_t);
 static void UART_reset_buffers(void);
 static void UART_rx_isr(void);
 static void UART_tx_isr(void);
@@ -28,9 +28,6 @@ static int volatile UART_rx_buf_read  = 0;
 
 USART_peripheral_registers_t volatile *UART_registers;
 
-void bs_led_enable(void);
-void bs_led_disable(void);
-
 #define UART_index_next(i)                                                     \
     {                                                                          \
         int next = i + 1;                                                      \
@@ -39,21 +36,21 @@ void bs_led_disable(void);
     }
 
 void
-UART_init(volatile void *uart_regs)
+UART_init(void volatile *uart_regs, int32_t clock_hz)
 {
     UART_registers = uart_regs;
-    UART_enable_uart();
+    UART_enable_uart(clock_hz);
     UART_reset_buffers();
     UART_enable_interrupts();
 }
 
 static void
-UART_enable_uart(void)
+UART_enable_uart(int32_t clock_hz)
 {
     UART_registers->cr1.fifo_disabled.m0 = USART_cr1_m0_8_bits;
     UART_registers->cr1.fifo_disabled.m1 = USART_cr1_m1_8_bits;
 
-    UART_registers->brr = (64 * 1000 * 1000) / (115200);
+    UART_registers->brr = (uint32_t)(clock_hz / (115200));
 
     UART_registers->cr2.stop = 0;
 
@@ -77,9 +74,9 @@ UART_reset_buffers(void)
 static void
 UART_enable_interrupts(void)
 {
-    UART_registers->cr1.fifo_disabled.rxneie         = 1;
-    NVIC_registers->IP.usart3_4_5_6_lpuart1.priority = 0;
-    NVIC_registers->ISER.usart3_4_5_6_lpuart1        = 1;
+    UART_registers->cr1.fifo_disabled.rxneie   = 1;
+    NVIC_registers->IP.usart2_lpuart2.priority = 0;
+    NVIC_registers->ISER.usart2_lpuart2        = 1;
 }
 
 int
@@ -151,7 +148,7 @@ UART_buf_read_blocking(void *data, int len)
 }
 
 void
-USART3_4_LPUART1_IRQHandler(void)
+USART_IRQHandler(void)
 {
     if (UART_tx_interrupt_detected()) {
         UART_tx_isr();

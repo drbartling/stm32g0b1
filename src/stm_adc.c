@@ -1,6 +1,6 @@
-#include "stm_adc.h"
+#include "stm32g0b1/stm_adc.h"
 
-#include "stm32g0b1.h"
+#include "stm32g0b1/stm32g0b1.h"
 #include "timeout_macros.h"
 
 #include <stdbool.h>
@@ -94,7 +94,7 @@ read_adc(ADC_chselr_t const chselr)
     wait_timeout(0 == STM_ADC1->isr.eoc, 1000, -4);
     wait_timeout(0 == STM_ADC1->isr.eos, 1000, -5);
 
-    int16_t result = STM_ADC1->dr.bits;
+    uint16_t result = STM_ADC1->dr.data;
     wait_timeout(1 == STM_ADC1->isr.eoc, 1000, -6);
     // clear end of conversion and end of sequence bits by writing 1
     STM_ADC1->isr.eos = 1;
@@ -102,5 +102,5 @@ read_adc(ADC_chselr_t const chselr)
     // STM_ADC1->chselr.bits = 0;
     STM_ADC1->cr.addis = 1;
 
-    return result;
+    return (int16_t)result;
 }

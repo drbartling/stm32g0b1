@@ -1,8 +1,9 @@
-#include "stm_reset.h"
+#include "stm32g0b1/stm_reset.h"
 
-#include "board_support.h"
-#include "stm32g0b1.h"
-#include "stm_scb.h"
+#include "stm32g0b1/stm32g0b1.h"
+#include "stm32g0b1/stm_scb.h"
+
+#include <stdbool.h>
 
 void
 RST_software_reset(void)
@@ -14,15 +15,6 @@ RST_software_reset(void)
     reset_req.sysresetreq     = 1;
     SCB_registers->AIRCR.bits = reset_req.bits;
 
-    int volatile i = 0;
-    while (1) {
-        i++;
-        if (i < 10 * 1000) {
-            bs_led_enable();
-        } else if (i < 100 * 1000) {
-            bs_led_disable();
-        } else {
-            i = 0;
-        }
+    for (int volatile i = 0; true; ++i) {
     }
 }

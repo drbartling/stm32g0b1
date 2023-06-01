@@ -1,9 +1,9 @@
 .PHONY: default
 default: build
-	cmake --build build --target run
+	ninja -C build -v
 
 build:
-	cmake -S ./examples/blinky_nucleo -B build
+	cmake -DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/arm-none-eabi-gnu.cmake -S ./examples/blinky_nucleo -B build -G Ninja
 
 clean:
-	rm -rf *build*
+	rm -rf build

@@ -152,59 +152,57 @@ typedef struct {
     volatile NVIC_ip_registers_t   IP;
 } NVIC_Type;
 
-// rm0444 pp. 315-316
+// rm0444 rev 5 pp. 315-316
 typedef struct {
-    uint32_t *sram_end;                // 0x0000
-    uint32_t *reset_handler;           // 0x0004
-    uint32_t *nmi_handler;             // 0x0008
-    uint32_t *hard_fault_handler;      // 0x000c
-    uint32_t *reserved_0x0010;         // 0x0010
-    uint32_t *reserved_0x0014;         // 0x0014
-    uint32_t *reserved_0x0018;         // 0x0018
-    uint32_t *reserved_0x001C;         // 0x001C
-    uint32_t *reserved_0x0020;         // 0x0020
-    uint32_t *reserved_0x0024;         // 0x0024
-    uint32_t *reserved_0x0028;         // 0x0028
-    uint32_t *svc_handler;             // 0x002c
-    uint32_t *reserved_0x0030;         // 0x0030
-    uint32_t *reserved_0x0034;         // 0x0034
-    uint32_t *pend_sv_handler;         // 0x0038
-    uint32_t *sys_tick_handler;        // 0x003c
-    uint32_t *wwdg_handler;            // 0x0040
-    uint32_t *pvd_handler;             // 0x0044
-    uint32_t *rtc_tamp_handler;        // 0x0048
-    uint32_t *flash_handler;           // 0x004c
-    uint32_t *rcc_crs_handler;         // 0x0050
-    uint32_t *exi_0_1;                 // 0x0054
-    uint32_t *exi_2_3;                 // 0x0058
-    uint32_t *exi_4_15;                // 0x005c
-    uint32_t *ucpd1_ucpd2_usb_handler; // 0x0060
-    uint32_t *reserved_0x0064;         // 0x0064
-    uint32_t *reserved_0x0068;         // 0x0068
-    uint32_t *reserved_0x006C;         // 0x006C
-    uint32_t *adc_comp_handler;        // 0x0070
-    uint32_t *reserved_0x0074;         // 0x0074
-    uint32_t *reserved_0x0078;         // 0x0078
-    uint32_t *reserved_0x007C;         // 0x007C
-    uint32_t *reserved_0x0080;         // 0x0080
-    uint32_t *reserved_0x0084;         // 0x0084
-    uint32_t *reserved_0x0088;         // 0x0088
-    uint32_t *reserved_0x008C;         // 0x008C
-    uint32_t *reserved_0x0090;         // 0x0090
-    uint32_t *reserved_0x0094;         // 0x0094
-    uint32_t *reserved_0x0098;         // 0x0098
-    uint32_t *reserved_0x009C;         // 0x009C
-    uint32_t *reserved_0x00A0;         // 0x00A0
-    uint32_t *reserved_0x00A4;         // 0x00A4
-    uint32_t *reserved_0x00A8;         // 0x00A8
-    uint32_t *reserved_0x00AC;         // 0x00AC
-    uint32_t *reserved_0x00B0;         // 0x00B0
-    uint32_t *usart_3_4_5_6_lpuart_1;  // 0x00B4
-    uint32_t *reserved_0x00B8;         // 0x00B8
-    uint32_t *reserved_0x00BC;         // 0x00BC
+    void *sram_end;                // 0x0000
+    void *reset_handler;           // 0x0004
+    void *nmi_handler;             // 0x0008
+    void *hard_fault_handler;      // 0x000c
+    void *reserved_0x0010;         // 0x0010
+    void *reserved_0x0014;         // 0x0014
+    void *reserved_0x0018;         // 0x0018
+    void *reserved_0x001C;         // 0x001C
+    void *reserved_0x0020;         // 0x0020
+    void *reserved_0x0024;         // 0x0024
+    void *reserved_0x0028;         // 0x0028
+    void *svc_handler;             // 0x002c
+    void *reserved_0x0030;         // 0x0030
+    void *reserved_0x0034;         // 0x0034
+    void *pend_sv_handler;         // 0x0038
+    void *sys_tick_handler;        // 0x003c
+    void *wwdg_handler;            // 0x0040
+    void *pvd_handler;             // 0x0044
+    void *rtc_tamp_handler;        // 0x0048
+    void *flash_handler;           // 0x004c
+    void *rcc_crs_handler;         // 0x0050
+    void *exi_0_1;                 // 0x0054
+    void *exi_2_3;                 // 0x0058
+    void *exi_4_15;                // 0x005c
+    void *ucpd1_ucpd2_usb_handler; // 0x0060
+    void *reserved_0x0064;         // 0x0064
+    void *reserved_0x0068;         // 0x0068
+    void *reserved_0x006C;         // 0x006C
+    void *adc_comp_handler;        // 0x0070
+    void *reserved_0x0074;         // 0x0074
+    void *reserved_0x0078;         // 0x0078
+    void *reserved_0x007C;         // 0x007C
+    void *reserved_0x0080;         // 0x0080
+    void *reserved_0x0084;         // 0x0084
+    void *reserved_0x0088;         // 0x0088
+    void *reserved_0x008C;         // 0x008C
+    void *reserved_0x0090;         // 0x0090
+    void *reserved_0x0094;         // 0x0094
+    void *reserved_0x0098;         // 0x0098
+    void *reserved_0x009C;         // 0x009C
+    void *reserved_0x00A0;         // 0x00A0
+    void *reserved_0x00A4;         // 0x00A4
+    void *reserved_0x00A8;         // 0x00A8
+    void *reserved_0x00AC;         // 0x00AC
+    void *usart_2_lpuart_2;        // 0x00B0
+    void *usart_3_4_5_6_lpuart_1;  // 0x00B4
+    void *reserved_0x00B8;         // 0x00B8
+    void *reserved_0x00BC;         // 0x00BC
 } interrupt_vector_table_t;
-
-void HAL_NVIC_SetPriority(IRQn_Type, uint32_t, uint32_t);
 
 #ifdef __cplusplus
 }

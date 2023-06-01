@@ -11,7 +11,7 @@ extern "C" {
  *
  * @param      uart_regs  Pointer to the UART registers
  */
-void UART_init(volatile void *uart_regs);
+void UART_init(volatile void *uart_regs, int32_t clock_hz);
 
 /**
  * @brief      Returns the number of bytes received and waiting to be read
@@ -78,7 +78,7 @@ void UART_buf_read_blocking(void *data, int len);
  *
  *             Do not call directly.  Assign in interrupt vector table.
  */
-void USART3_4_LPUART1_IRQHandler(void);
+void USART_IRQHandler(void);
 
 #ifdef __cplusplus
 }

@@ -137,9 +137,9 @@ FLASH_sr_t FLASH_write_data_no_erase(int32_t /*address*/, void const * /*data*/,
 void FLASH_unlock(void);
 
 FLASH_sr_t FLASH_write_page(int32_t, void const *);
-void       FLASH_erase_page(int);
-int        FLASH_page_number_from_address(int32_t);
-int32_t    FLASH_address_from_page_number(int);
+void       FLASH_erase_page(int16_t);
+int16_t    FLASH_page_number_from_address(int32_t);
+int32_t    FLASH_address_from_page_number(int16_t);
 void       FLASH_edit_page(int32_t, void *, int32_t);
 void       FLASH_write_row(int32_t, void *);
 

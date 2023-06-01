@@ -6,6 +6,8 @@ extern "C" {
 
 #include "static_assert.h"
 
+#include <stdint.h>
+
 typedef union {
     struct {
         uint32_t envr : 1;
