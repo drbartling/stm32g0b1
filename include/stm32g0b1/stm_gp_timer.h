@@ -57,119 +57,66 @@ typedef union {
 } GPTIM_smcr_t;
 STATIC_ASSERT_TYPE_SIZE(GPTIM_smcr_t, sizeof(GPTIM_cr2_t));
 
+// rm0444 r5 pp. 676-677
 typedef union {
     struct {
-        uint32_t bit_00 : 1;
-        uint32_t bit_01 : 1;
-        uint32_t bit_02 : 1;
-        uint32_t bit_03 : 1;
-        uint32_t bit_04 : 1;
-        uint32_t bit_05 : 1;
-        uint32_t bit_06 : 1;
-        uint32_t bit_07 : 1;
-        uint32_t bit_08 : 1;
-        uint32_t bit_09 : 1;
-        uint32_t bit_10 : 1;
-        uint32_t bit_11 : 1;
-        uint32_t bit_12 : 1;
-        uint32_t bit_13 : 1;
-        uint32_t bit_14 : 1;
-        uint32_t bit_15 : 1;
-        uint32_t bit_16 : 1;
-        uint32_t bit_17 : 1;
-        uint32_t bit_18 : 1;
-        uint32_t bit_19 : 1;
-        uint32_t bit_20 : 1;
-        uint32_t bit_21 : 1;
-        uint32_t bit_22 : 1;
-        uint32_t bit_23 : 1;
-        uint32_t bit_24 : 1;
-        uint32_t bit_25 : 1;
-        uint32_t bit_26 : 1;
-        uint32_t bit_27 : 1;
-        uint32_t bit_28 : 1;
-        uint32_t bit_29 : 1;
-        uint32_t bit_30 : 1;
-        uint32_t bit_31 : 1;
+        uint16_t uie : 1;
+        uint16_t cc1ie : 1;
+        uint16_t cc2ie : 1;
+        uint16_t cc3ie : 1;
+        uint16_t cc4ie : 1;
+        uint16_t reserved_05 : 1;
+        uint16_t tie : 1;
+        uint16_t reserved_07 : 1;
+        uint16_t ude : 1;
+        uint16_t cc1oe : 1;
+        uint16_t cc2oe : 1;
+        uint16_t cc3oe : 1;
+        uint16_t cc4oe : 1;
+        uint16_t reserved_13 : 1;
+        uint16_t tde : 1;
+        uint16_t reserved_15 : 1;
     };
-    uint32_t bits;
+    uint16_t bits;
 } GPTIM_dier_t;
-STATIC_ASSERT_TYPE_SIZE(GPTIM_dier_t, sizeof(GPTIM_cr2_t));
+STATIC_ASSERT_TYPE_SIZE(GPTIM_dier_t, sizeof(uint16_t));
 
+// rm0444 r5 pp. 677-679
 typedef union {
     struct {
-        uint32_t bit_00 : 1;
-        uint32_t bit_01 : 1;
-        uint32_t bit_02 : 1;
-        uint32_t bit_03 : 1;
-        uint32_t bit_04 : 1;
-        uint32_t bit_05 : 1;
-        uint32_t bit_06 : 1;
-        uint32_t bit_07 : 1;
-        uint32_t bit_08 : 1;
-        uint32_t bit_09 : 1;
-        uint32_t bit_10 : 1;
-        uint32_t bit_11 : 1;
-        uint32_t bit_12 : 1;
-        uint32_t bit_13 : 1;
-        uint32_t bit_14 : 1;
-        uint32_t bit_15 : 1;
-        uint32_t bit_16 : 1;
-        uint32_t bit_17 : 1;
-        uint32_t bit_18 : 1;
-        uint32_t bit_19 : 1;
-        uint32_t bit_20 : 1;
-        uint32_t bit_21 : 1;
-        uint32_t bit_22 : 1;
-        uint32_t bit_23 : 1;
-        uint32_t bit_24 : 1;
-        uint32_t bit_25 : 1;
-        uint32_t bit_26 : 1;
-        uint32_t bit_27 : 1;
-        uint32_t bit_28 : 1;
-        uint32_t bit_29 : 1;
-        uint32_t bit_30 : 1;
-        uint32_t bit_31 : 1;
+        uint16_t uif : 1;
+        uint16_t cc1if : 1;
+        uint16_t cc2if : 1;
+        uint16_t cc3if : 1;
+        uint16_t cc4if : 1;
+        uint16_t reserved_05 : 1;
+        uint16_t rc_w0 : 1;
+        uint16_t reserved_07 : 2;
+        uint16_t cc1of : 1;
+        uint16_t cc2of : 1;
+        uint16_t cc3of : 1;
+        uint16_t cc4of : 1;
+        uint16_t reserved_13 : 3;
     };
-    uint32_t bits;
+    uint16_t bits;
 } GPTIM_sr_t;
+STATIC_ASSERT_TYPE_SIZE(GPTIM_sr_t, sizeof(uint16_t));
+
+// rm0444 r5 pp. 679-680
 typedef union {
     struct {
-        uint32_t bit_00 : 1;
-        uint32_t bit_01 : 1;
-        uint32_t bit_02 : 1;
-        uint32_t bit_03 : 1;
-        uint32_t bit_04 : 1;
-        uint32_t bit_05 : 1;
-        uint32_t bit_06 : 1;
-        uint32_t bit_07 : 1;
-        uint32_t bit_08 : 1;
-        uint32_t bit_09 : 1;
-        uint32_t bit_10 : 1;
-        uint32_t bit_11 : 1;
-        uint32_t bit_12 : 1;
-        uint32_t bit_13 : 1;
-        uint32_t bit_14 : 1;
-        uint32_t bit_15 : 1;
-        uint32_t bit_16 : 1;
-        uint32_t bit_17 : 1;
-        uint32_t bit_18 : 1;
-        uint32_t bit_19 : 1;
-        uint32_t bit_20 : 1;
-        uint32_t bit_21 : 1;
-        uint32_t bit_22 : 1;
-        uint32_t bit_23 : 1;
-        uint32_t bit_24 : 1;
-        uint32_t bit_25 : 1;
-        uint32_t bit_26 : 1;
-        uint32_t bit_27 : 1;
-        uint32_t bit_28 : 1;
-        uint32_t bit_29 : 1;
-        uint32_t bit_30 : 1;
-        uint32_t bit_31 : 1;
+        uint16_t ug : 1;
+        uint16_t cc1g : 1;
+        uint16_t cc2g : 1;
+        uint16_t cc3g : 1;
+        uint16_t cc4g : 1;
+        uint16_t reserved_05 : 1;
+        uint16_t tg : 1;
+        uint16_t reserved_07 : 9;
     };
-    uint32_t bits;
+    uint16_t bits;
 } GPTIM_egr_t;
+STATIC_ASSERT_TYPE_SIZE(GPTIM_egr_t, sizeof(uint16_t));
 
 typedef union {
     struct {
@@ -679,12 +626,16 @@ typedef union {
     uint32_t bits;
 } GPTIM_tisel_t;
 
+// rm0444 r5 p. 625
+// rm0444 r5 pp. 699-701
 typedef struct {
     GPTIM_cr1_t volatile cr1;
     GPTIM_cr2_t volatile cr2;
     GPTIM_smcr_t volatile smcr;
     GPTIM_dier_t volatile dier;
+    uint16_t volatile reserved_0x0E;
     GPTIM_sr_t volatile sr;
+    uint16_t volatile reserved_0x12;
     GPTIM_egr_t volatile egr;
     GPTIM_ccmr1_t volatile ccmr1;
     GPTIM_ccmr2_t volatile ccmr2;
@@ -706,6 +657,11 @@ typedef struct {
     GPTIM_reserved_0x64_t volatile reserved_0x64;
     GPTIM_tisel_t volatile tisel;
 } GPTIM_peripheral_registers_t;
+STATIC_ASSERT_MEMBER_OFFSET(GPTIM_peripheral_registers_t, dier, 0x0C);
+STATIC_ASSERT_MEMBER_OFFSET(GPTIM_peripheral_registers_t, reserved_0x0E, 0x0E);
+STATIC_ASSERT_MEMBER_OFFSET(GPTIM_peripheral_registers_t, sr, 0x10);
+STATIC_ASSERT_MEMBER_OFFSET(GPTIM_peripheral_registers_t, reserved_0x12, 0x12);
+STATIC_ASSERT_MEMBER_OFFSET(GPTIM_peripheral_registers_t, egr, 0x14);
 STATIC_ASSERT_MEMBER_OFFSET(GPTIM_peripheral_registers_t, arr, 0x2C);
 STATIC_ASSERT_MEMBER_OFFSET(GPTIM_peripheral_registers_t, ccr1, 0x34);
 STATIC_ASSERT_MEMBER_OFFSET(GPTIM_peripheral_registers_t, dcr, 0x48);

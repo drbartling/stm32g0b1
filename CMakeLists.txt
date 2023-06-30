@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.22 FATAL_ERROR)
 project(stm32g0b1)
 
 include(cmake/CPM.cmake)
-# include(cmake/optimization.cmake)
 
 if(NOT TARGET c_static_asserts)
     cpmaddpackage("gh:drbartling/c_static_asserts#master")
@@ -24,10 +23,3 @@ add_library(
     src/uart.c)
 target_link_libraries(${PROJECT_NAME} PUBLIC c_static_asserts)
 target_include_directories(${PROJECT_NAME} PUBLIC include)
-
-# ---- Run executable ----
-add_custom_target(
-    run
-    COMMAND ${PROJECT_NAME}
-    DEPENDS ${PROJECT_NAME}
-    WORKING_DIRECTORY ${CMAKE_PROJECT_DIR})

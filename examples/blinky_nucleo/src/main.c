@@ -1,5 +1,6 @@
 #include "stm32g0b1/stm32g0b1.h"
 
+#include <stdio.h>
 #include <string.h>
 
 #define LED_RCC_ENABLE gpioa_en
@@ -22,8 +23,12 @@ static void chip_init(void);
 static void rcc_init(void);
 static void gpio_init(void);
 static void uart_init(void);
+static void millis_init(void);
+static void millis_handler(void);
+static void delay(int64_t);
 
 static int32_t volatile clock_hz = 12 * 1000 * 1000;
+static int64_t volatile millis   = 0;
 
 // Application
 
@@ -33,13 +38,16 @@ main(void)
     chip_init();
 
     while (1) {
-        for (int volatile i = 0; i < 5000000; ++i) {
-        }
+        int64_t period_ms = 1000;
+        int64_t delta     = millis % period_ms;
+        period_ms -= delta;
+        delay(period_ms / 2);
         LED_PORT->bsrr.LED_PIN = 1;
-        for (int volatile i = 0; i < 5000000; ++i) {
-        }
+        delay(period_ms / 2);
         LED_PORT->brr.LED_PIN = 1;
-        char text[]           = "Hello, World!\r\n";
+        char    text[100]     = {0};
+        int64_t ms            = millis;
+        sprintf(text, "Hello, World! %d\r\n", (int)ms);
         UART_buf_write(text, (int)strlen(text));
     }
     return 0;
@@ -52,6 +60,7 @@ chip_init(void)
     rcc_init();
     gpio_init();
     uart_init();
+    millis_init();
 }
 
 static void
@@ -114,6 +123,47 @@ uart_init(void)
     UART_init(STM_USART2, clock_hz);
 }
 
+static void
+millis_init(void)
+{
+    // rm0444 r5 p. 629
+    STM_RCC->apbenr1.tim2en                      = 1;
+    GPTIM_peripheral_registers_t volatile *timer = STM_TIM2;
+
+    uint32_t period_ms      = 1;
+    uint32_t cycles_per_ms  = (uint32_t)clock_hz / 1000;
+    uint32_t counter_cycles = cycles_per_ms * period_ms;
+
+    timer->cr1.cen  = 0;
+    timer->sr.uif   = 0;
+    timer->dier.uie = 0;
+
+    millis          = 0;
+    timer->arr.bits = counter_cycles - 1;
+
+    timer->dier.uie                  = 1;
+    timer->dier.tie                  = 1;
+    NVIC_registers->IP.tim2.priority = 0;
+    NVIC_registers->ISER.tim2        = 1;
+
+    timer->cr1.cen = 1;
+}
+
+static void
+millis_handler(void)
+{
+    STM_TIM2->sr.uif = 0;
+    millis++;
+}
+
+static void
+delay(int64_t delay_ms)
+{
+    int64_t start_ms = millis;
+    while (millis - start_ms < delay_ms) {
+    }
+}
+
 // Environment setup
 _Noreturn static void reset_handler(void);
 static void initialize_global_data(uint32_t *flash_begin, uint32_t *data_begin,
@@ -170,4 +220,5 @@ __attribute__((used)) = {
     .nmi_handler        = (void *)nmi_handler,
     .hard_fault_handler = (void *)hard_fault_handler,
     .usart_2_lpuart_2   = (void *)USART_IRQHandler,
+    .tim2_handler       = (void *)millis_handler,
 };

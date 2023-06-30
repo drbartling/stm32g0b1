@@ -185,7 +185,7 @@ typedef struct {
     void *adc_comp_handler;        // 0x0070
     void *reserved_0x0074;         // 0x0074
     void *reserved_0x0078;         // 0x0078
-    void *reserved_0x007C;         // 0x007C
+    void *tim2_handler;            // 0x007C
     void *reserved_0x0080;         // 0x0080
     void *reserved_0x0084;         // 0x0084
     void *reserved_0x0088;         // 0x0088
