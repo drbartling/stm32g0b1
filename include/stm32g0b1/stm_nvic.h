@@ -139,6 +139,7 @@ typedef struct {
 } NVIC_ip_registers_t;
 STATIC_ASSERT_TYPE_SIZE(NVIC_ip_registers_t, sizeof(uint32_t[8]));
 
+// pm0223 rev 6 p. 82
 typedef struct {
     volatile NVIC_iser_registers_t ISER;
     const uint32_t                 RESERVED0[31U];
@@ -151,6 +152,11 @@ typedef struct {
     const uint32_t                 RESERVED4[64U];
     volatile NVIC_ip_registers_t   IP;
 } NVIC_Type;
+STATIC_ASSERT_MEMBER_OFFSET(NVIC_Type, ISER, 0x000);
+STATIC_ASSERT_MEMBER_OFFSET(NVIC_Type, ICER, 0x080);
+STATIC_ASSERT_MEMBER_OFFSET(NVIC_Type, ISPR, 0x100);
+STATIC_ASSERT_MEMBER_OFFSET(NVIC_Type, ICPR, 0x180);
+STATIC_ASSERT_MEMBER_OFFSET(NVIC_Type, IP, 0x300);
 
 // rm0444 rev 5 pp. 315-316
 typedef struct {
