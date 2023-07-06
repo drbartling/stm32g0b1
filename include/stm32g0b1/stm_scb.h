@@ -8,6 +8,37 @@ extern "C" {
 
 #include <stdint.h>
 
+// pm0223 r6 pp. 89-91
+typedef union {
+    struct {
+        uint32_t vectactiv : 9;
+        uint32_t reserved_9 : 3;
+        uint32_t vectpending : 9;
+        uint32_t reserved_21 : 1;
+        uint32_t isrpending : 1;
+        uint32_t isrpreempt : 1;
+        uint32_t reserved_24 : 1;
+        uint32_t pendstclr : 1;
+        uint32_t pendstset : 1;
+        uint32_t pendsvclr : 1;
+        uint32_t pendsvset : 1;
+        uint32_t reserved_29 : 2;
+        uint32_t nmipendset : 1;
+    };
+    uint32_t bits;
+} ST_icsr_t;
+STATIC_ASSERT_TYPE_SIZE(ST_icsr_t, sizeof(uint32_t));
+
+// pm0223 r6 p. 91
+typedef union {
+    struct {
+        uint32_t reserved_0 : 7;
+        uint32_t tbloff : 25;
+    };
+    uint32_t bits;
+} ST_vtor_t;
+STATIC_ASSERT_TYPE_SIZE(ST_vtor_t, sizeof(uint32_t));
+
 typedef union {
     struct {
         uint32_t reserved_0 : 1;
@@ -29,8 +60,8 @@ STATIC_ASSERT_TYPE_SIZE(ST_aircr_t, sizeof(uint32_t));
 
 typedef struct {
     volatile const uint32_t CPUID;
-    volatile uint32_t       ICSR;
-    volatile uint32_t       VTOR;
+    volatile ST_icsr_t      ICSR;
+    volatile ST_vtor_t      VTOR;
     volatile ST_aircr_t     AIRCR;
     volatile uint32_t       SCR;
     volatile uint32_t       CCR;
@@ -79,6 +110,7 @@ typedef struct {
     uint32_t                RESERVED8[1U];
     volatile uint32_t       ABFSR;
 } SCB_Type;
+STATIC_ASSERT_MEMBER_OFFSET(SCB_Type, CPUID, 0x00);
 
 #ifdef __cplusplus
 }
