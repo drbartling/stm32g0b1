@@ -24,8 +24,12 @@ set(CMAKE_INTERPROCEDURAL_OPTIMIZATION OFF)
 
 add_compile_options(${ARCH_FLAGS})
 add_compile_options(${OPT_FLAGS})
-add_compile_options(-ffunction-sections -fdata-sections -fno-common
-                    -fmessage-length=0)
+add_compile_options(
+    -ffunction-sections
+    -fdata-sections
+    -fno-common
+    -fmessage-length=0
+)
 add_definitions(-DDEBUG)
 
 add_link_options(
@@ -33,7 +37,12 @@ add_link_options(
 )
 add_link_options(${ARCH_FLAGS})
 add_link_options(${OPT_FLAGS})
-add_link_options(-lc -lm -lgcc ${HOSTING_FLAGS})
+add_link_options(
+    -lc
+    -lm
+    -lgcc
+    ${HOSTING_FLAGS}
+)
 
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)

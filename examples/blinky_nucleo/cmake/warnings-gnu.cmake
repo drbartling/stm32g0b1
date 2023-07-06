@@ -34,5 +34,6 @@ function(set_warnings target_name)
 
     target_compile_options(
         ${target_name} INTERFACE $<$<COMPILE_LANGUAGE:CXX>:${CXX_WARNINGS}>
-                                 $<$<COMPILE_LANGUAGE:C>:${C_WARNINGS}>)
+                                 $<$<COMPILE_LANGUAGE:C>:${C_WARNINGS}>
+    )
 endfunction()

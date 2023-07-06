@@ -10,15 +10,18 @@ set(ARCH_FLAGS -mthumb -mcpu=cortex-m0plus -mfloat-abi=soft)
 execute_process(
     COMMAND ${ARM_GCC_C_COMPILER} -print-sysroot
     OUTPUT_VARIABLE ARM_GCC_SYSROOT
-    OUTPUT_STRIP_TRAILING_WHITESPACE)
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
 execute_process(
     COMMAND ${ARM_GCC_C_COMPILER} ${ARCH_FLAGS} -print-multi-directory
     OUTPUT_VARIABLE ARM_GCC_MULTI_DIR
-    OUTPUT_STRIP_TRAILING_WHITESPACE)
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
 execute_process(
     COMMAND ${ARM_GCC_C_COMPILER} ${ARCH_FLAGS} -print-libgcc-file-name
     OUTPUT_VARIABLE ARM_GCC_LIBGCC
-    OUTPUT_STRIP_TRAILING_WHITESPACE)
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
 
 set(TOOLCHAIN_PREFIX arm-none-eabi-)
 set(TOOLCHAIN_TRIPLE arm-none-eabi)
@@ -54,7 +57,8 @@ include(${CMAKE_CURRENT_LIST_DIR}/../warnings-llvm.cmake)
 
 set(STD_LIB_FLAGS
     -nostdlib -L${ARM_CORTEXM_SYSROOT}/lib/${ARM_CORTEXM_MULTI_DIR}
-    ${ARM_GCC_LIBGCC})
+    ${ARM_GCC_LIBGCC}
+)
 
 set(OPT_FLAGS -Og -g -gdwarf-4)
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION OFF)
@@ -63,8 +67,12 @@ add_compile_options(${ARCH_FLAGS})
 add_compile_options(${OPT_FLAGS})
 add_compile_options(--sysroot=${ARM_GCC_SYSROOT})
 add_compile_options(-fshort-enums)
-add_compile_options(-ffunction-sections -fdata-sections -fno-common
-                    -fmessage-length=0)
+add_compile_options(
+    -ffunction-sections
+    -fdata-sections
+    -fno-common
+    -fmessage-length=0
+)
 add_definitions(-DDEBUG)
 
 add_link_options(${ARCH_FLAGS})

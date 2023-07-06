@@ -17,7 +17,7 @@ add_link_options(-T ${LINKER_SCRIPT})
 add_library(project_warnings INTERFACE)
 set_warnings(project_warnings)
 
-add_executable(${PROJECT_NAME}.elf src/main.c ${LINKER_SCRIPT})
+add_executable(${PROJECT_NAME}.elf ${LINKER_SCRIPT} src/main.c)
 target_link_libraries(${PROJECT_NAME}.elf stm32g0b1 project_warnings)
 target_link_libraries(stm32g0b1 PUBLIC project_warnings)
 
@@ -35,4 +35,5 @@ add_custom_command(
             ${BIN_FILE}
     COMMAND ${CMAKE_OBJDUMP} -drwCS $<TARGET_FILE:${PROJECT_NAME}.elf> >
             ${ASM_FILE}
-    COMMENT "Building ${HEX_FILE} Building ${BIN_FILE}")
+    COMMENT "Building ${HEX_FILE} Building ${BIN_FILE}"
+)
