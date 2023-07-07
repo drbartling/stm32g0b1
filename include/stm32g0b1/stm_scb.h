@@ -58,13 +58,38 @@ typedef union {
 } ST_aircr_t;
 STATIC_ASSERT_TYPE_SIZE(ST_aircr_t, sizeof(uint32_t));
 
+typedef union {
+    struct {
+        uint32_t reserved_0 : 1;
+        uint32_t sleeponexit : 1;
+        uint32_t sleepdeep : 1;
+        uint32_t reserved_3 : 1;
+        uint32_t seveonpend : 1;
+        uint32_t reserved_5 : 27;
+    };
+    uint32_t bits;
+} ST_scr_t;
+STATIC_ASSERT_TYPE_SIZE(ST_scr_t, sizeof(uint32_t));
+
+typedef union {
+    struct {
+        uint32_t reserved_0 : 3;
+        uint32_t unalign_trp : 1;
+        uint32_t reserved_4 : 5;
+        uint32_t stkalign : 1;
+        uint32_t reserved_10 : 22;
+    };
+    uint32_t bits;
+} ST_ccr_t;
+STATIC_ASSERT_TYPE_SIZE(ST_ccr_t, sizeof(uint32_t));
+
 typedef struct {
     volatile const uint32_t CPUID;
     volatile ST_icsr_t      ICSR;
     volatile ST_vtor_t      VTOR;
     volatile ST_aircr_t     AIRCR;
-    volatile uint32_t       SCR;
-    volatile uint32_t       CCR;
+    volatile ST_scr_t       SCR;
+    volatile ST_ccr_t       CCR;
     volatile uint8_t        SHPR[12U];
     volatile uint32_t       SHCSR;
     volatile uint32_t       CFSR;

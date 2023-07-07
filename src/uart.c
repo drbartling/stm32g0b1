@@ -74,9 +74,17 @@ UART_reset_buffers(void)
 static void
 UART_enable_interrupts(void)
 {
-    UART_registers->cr1.fifo_disabled.rxneie   = 1;
-    NVIC_registers->IP.usart2_lpuart2.priority = 0;
-    NVIC_registers->ISER.usart2_lpuart2        = 1;
+    UART_registers->cr1.fifo_disabled.rxneie = 1;
+    if (UART_registers == STM_USART1) {
+        NVIC_registers->IP.usart1.priority = 0;
+        NVIC_registers->ISER.usart1        = 1;
+    } else if (UART_registers == STM_USART2) {
+        NVIC_registers->IP.usart2_lpuart2.priority = 0;
+        NVIC_registers->ISER.usart2_lpuart2        = 1;
+    } else {
+        NVIC_registers->IP.usart3_4_5_6_lpuart1.priority = 0;
+        NVIC_registers->ISER.usart3_4_5_6_lpuart1        = 1;
+    }
 }
 
 int

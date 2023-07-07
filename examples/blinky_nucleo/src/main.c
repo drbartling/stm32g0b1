@@ -208,6 +208,18 @@ nmi_handler(void)
 _Noreturn static void
 hard_fault_handler(void)
 {
+    // clang-format off
+    // • Execution of an SVC instruction at a priority equal or higher than SVCall.
+    // • Execution of a BKPT instruction without a debugger attached.
+    // • A system-generated bus error on a load or store.
+    // • Execution of an instruction from an XN memory address.
+    // • Execution of an instruction from a location for which the system generates a bus fault.
+    // • A system-generated bus error on a vector fetch.
+    // • Execution of an Undefined instruction.
+    // • Execution of an instruction when not in Thumb state as a result of the T-bit being previously cleared to 0.
+    // • An attempted load or store to an unaligned address.
+    // • An MPU fault because of a privilege violation or an attempt to access an unmanaged region.
+    // clang-format on
     while (1) {
     }
 }
