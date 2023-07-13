@@ -95,7 +95,7 @@ FLASH_erase_page(int16_t page_number)
         // Wait for previous flash operation to complete
     }
     FLASH_clear_errors();
-    STM_FLASH->cr.pnb  = page_number & 0x4F;
+    STM_FLASH->cr.pnb  = page_number;
     STM_FLASH->cr.per  = 1;
     STM_FLASH->cr.bker = bank;
     STM_FLASH->cr.strt = 1;
@@ -123,7 +123,9 @@ FLASH_write_data_no_erase(int32_t address, void const *data, int32_t size)
     int32_t         double_word_count = size / (int32_t)sizeof(uint64_t);
     uint64_t       *destination       = (void *)address;
     for (int i = 0; i < double_word_count; i++) {
-        if (FLASH_write_double_word(&destination[i], double_words[i])) {
+        uint64_t double_word;
+        memcpy(&double_word, double_words+i, sizeof(double_word));
+        if (FLASH_write_double_word(&destination[i],double_word)) {
             return STM_FLASH->sr;
         }
     }
