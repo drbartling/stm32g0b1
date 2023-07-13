@@ -89,6 +89,25 @@ typedef union {
 } RCC_iopenr_t;
 STATIC_ASSERT_TYPE_SIZE(RCC_iopenr_t, sizeof(uint32_t));
 
+// rm0444 rev 5 pp197-198
+typedef union {
+    struct {
+        uint32_t dma1en : 1;
+        uint32_t dma2en : 1;
+        uint32_t reserved_02 : 6;
+        uint32_t flashen : 1;
+        uint32_t reserved_09 : 3;
+        uint32_t crcen : 1;
+        uint32_t reserved_13 : 3;
+        uint32_t aesen : 1;
+        uint32_t reserved_17 : 1;
+        uint32_t rngen : 1;
+        uint32_t reserved_19 : 13;
+    };
+    uint32_t bits;
+} RCC_ahbenr_t;
+STATIC_ASSERT_TYPE_SIZE(RCC_ahbenr_t, sizeof(uint32_t));
+
 // rm0444 rev 5 pp198-201
 typedef union {
     struct {
@@ -183,7 +202,7 @@ typedef struct {
     uint32_t volatile apbrstr1;
     uint32_t volatile apbrstr2;
     RCC_iopenr_t volatile iopenr;
-    uint32_t volatile ahbenr;
+    RCC_ahbenr_t volatile ahbenr;
     RCC_apbenr1_t volatile apbenr1;
     RCC_apbenr2_t volatile apbenr2;
     uint32_t volatile iopsmenr;
