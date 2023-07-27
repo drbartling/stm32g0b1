@@ -192,7 +192,7 @@ typedef struct {
     void *reserved_0x0074;         // 0x0074
     void *reserved_0x0078;         // 0x0078
     void *tim2_handler;            // 0x007C
-    void *reserved_0x0080;         // 0x0080
+    void *tim3_tim4_handler;         // 0x0080
     void *reserved_0x0084;         // 0x0084
     void *reserved_0x0088;         // 0x0088
     void *reserved_0x008C;         // 0x008C
