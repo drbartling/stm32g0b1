@@ -303,14 +303,9 @@ typedef union {
     uint32_t bits;
 } TIM1_psc_t;
 
-// rm0444 p. 689
-typedef union {
-    struct {
-        uint16_t lower;
-        uint16_t upper;
-    };
-    uint32_t bits;
-} TIM1_arr_t;
+// rm0444 p. 605
+typedef uint16_t TIM1_arr_t;
+STATIC_ASSERT_TYPE_SIZE(TIM1_arr_t, sizeof(uint16_t));
 
 typedef union {
     struct {
@@ -349,13 +344,7 @@ typedef union {
     };
     uint32_t bits;
 } TIM1_reserved_0x30_t;
-typedef union {
-    struct {
-        uint16_t lower;
-        uint16_t upper;
-    };
-    uint32_t bits;
-} TIM1_ccr_t;
+typedef uint16_t TIM1_ccr_t;
 
 typedef union {
     struct {
@@ -670,12 +659,18 @@ typedef struct {
     TIM1_cnt_t volatile cnt;
     TIM1_psc_t volatile psc;
     TIM1_arr_t volatile arr;
-    TIM1_reserved_0x30_t volatile reserved_0x30;
+    uint16_t volatile reserved_0x2E;
+    uint16_t volatile rcr;
+    uint16_t volatile reserved_0x32;
     TIM1_ccr_t volatile ccr1;
+    uint16_t volatile reserved_0x36;
     TIM1_ccr_t volatile ccr2;
+    uint16_t volatile reserved_0x3A;
     TIM1_ccr_t volatile ccr3;
+    uint16_t volatile reserved_0x3E;
     TIM1_ccr_t volatile ccr4;
-    TIM1_reserved_0x44_t volatile reserved_0x44;
+    uint16_t volatile reserved_0x42;
+    uint32_t volatile bdtr;
     TIM1_dcr_t volatile dcr;
     TIM1_dmar_t volatile dmar;
     TIM1_or1_t volatile or1;
@@ -689,7 +684,17 @@ STATIC_ASSERT_MEMBER_OFFSET(TIM1_peripheral_registers_t, reserved_0x0E, 0x0E);
 STATIC_ASSERT_MEMBER_OFFSET(TIM1_peripheral_registers_t, sr, 0x10);
 STATIC_ASSERT_MEMBER_OFFSET(TIM1_peripheral_registers_t, egr, 0x14);
 STATIC_ASSERT_MEMBER_OFFSET(TIM1_peripheral_registers_t, arr, 0x2C);
+STATIC_ASSERT_MEMBER_OFFSET(TIM1_peripheral_registers_t, rcr, 0x30);
+STATIC_ASSERT_MEMBER_OFFSET(TIM1_peripheral_registers_t, reserved_0x32, 0x32);
 STATIC_ASSERT_MEMBER_OFFSET(TIM1_peripheral_registers_t, ccr1, 0x34);
+STATIC_ASSERT_MEMBER_OFFSET(TIM1_peripheral_registers_t, reserved_0x36, 0x36);
+STATIC_ASSERT_MEMBER_OFFSET(TIM1_peripheral_registers_t, ccr2, 0x38);
+STATIC_ASSERT_MEMBER_OFFSET(TIM1_peripheral_registers_t, reserved_0x3A, 0x3A);
+STATIC_ASSERT_MEMBER_OFFSET(TIM1_peripheral_registers_t, ccr3, 0x3C);
+STATIC_ASSERT_MEMBER_OFFSET(TIM1_peripheral_registers_t, reserved_0x3E, 0x3E);
+STATIC_ASSERT_MEMBER_OFFSET(TIM1_peripheral_registers_t, ccr4, 0x40);
+STATIC_ASSERT_MEMBER_OFFSET(TIM1_peripheral_registers_t, reserved_0x42, 0x42);
+STATIC_ASSERT_MEMBER_OFFSET(TIM1_peripheral_registers_t, bdtr, 0x44);
 STATIC_ASSERT_MEMBER_OFFSET(TIM1_peripheral_registers_t, dcr, 0x48);
 STATIC_ASSERT_MEMBER_OFFSET(TIM1_peripheral_registers_t, or1, 0x50);
 STATIC_ASSERT_MEMBER_OFFSET(TIM1_peripheral_registers_t, af1, 0x60);
