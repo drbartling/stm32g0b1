@@ -12,6 +12,7 @@ extern "C" {
 #include "stm32g0b1/stm_rcc.h"
 #include "stm32g0b1/stm_scb.h"
 #include "stm32g0b1/stm_spi.h"
+#include "stm32g0b1/stm_timer1.h"
 #include "stm32g0b1/stm_usart.h"
 #include "stm32g0b1/stm_vrefbuf.h"
 #include "stm32g0b1/uart.h"
@@ -89,7 +90,7 @@ extern volatile VREFBUF_peripheral_registers_t *STM_VREFBUF;
 extern volatile uint32_t                       *STM_COMP1;
 extern volatile uint32_t                       *STM_COMP2;
 extern volatile ADC_peripheral_registers_t     *STM_ADC1;
-extern volatile uint32_t                       *STM_TIM1;
+extern volatile TIM1_peripheral_registers_t    *STM_TIM1;
 extern volatile uint32_t                       *STM_TIM15;
 extern volatile uint32_t                       *STM_TIM16;
 extern volatile uint32_t                       *STM_TIM17;

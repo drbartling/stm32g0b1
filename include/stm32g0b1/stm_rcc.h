@@ -161,7 +161,7 @@ typedef union {
         uint32_t bit_08 : 1;
         uint32_t bit_09 : 1;
         uint32_t bit_10 : 1;
-        uint32_t bit_11 : 1;
+        uint32_t tim1en : 1;
         uint32_t bit_12 : 1;
         uint32_t bit_13 : 1;
         uint32_t bit_14 : 1;
