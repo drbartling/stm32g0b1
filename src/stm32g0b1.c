@@ -7,9 +7,9 @@ NVIC_Type volatile *NVIC_registers    = (void *)(0xE000E100UL);
 SCB_Type volatile  *SCB_registers     = (void *)(0xE000ED00UL);
 
 // rm0444 r5 pp. 63-64
-GPTIM_peripheral_registers_t volatile   *STM_TIM2    = (void *)(0x40000000UL);
-GPTIM_peripheral_registers_t volatile   *STM_TIM3    = (void *)(0x40000400UL);
-GPTIM_peripheral_registers_t volatile   *STM_TIM4    = (void *)(0x40000800UL);
+TIM2_peripheral_registers_t volatile    *STM_TIM2    = (void *)(0x40000000UL);
+TIM2_peripheral_registers_t volatile    *STM_TIM3    = (void *)(0x40000400UL);
+TIM2_peripheral_registers_t volatile    *STM_TIM4    = (void *)(0x40000800UL);
 uint32_t volatile                       *STM_TIM6    = (void *)(0x40001000UL);
 uint32_t volatile                       *STM_TIM7    = (void *)(0x40001400UL);
 uint32_t volatile                       *STM_TIM14   = (void *)(0x40002000UL);

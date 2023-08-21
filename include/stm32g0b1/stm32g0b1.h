@@ -62,9 +62,9 @@ extern volatile stm_gpio_port_t *STM_gpio_c;
 extern volatile stm_gpio_port_t *STM_gpio_d;
 extern volatile stm_gpio_port_t *STM_gpio_f;
 
-extern volatile GPTIM_peripheral_registers_t   *STM_TIM2;
-extern volatile GPTIM_peripheral_registers_t   *STM_TIM3;
-extern volatile GPTIM_peripheral_registers_t   *STM_TIM4;
+extern volatile TIM2_peripheral_registers_t    *STM_TIM2;
+extern volatile TIM2_peripheral_registers_t    *STM_TIM3;
+extern volatile TIM2_peripheral_registers_t    *STM_TIM4;
 extern volatile uint32_t                       *STM_TIM6;
 extern volatile uint32_t                       *STM_TIM7;
 extern volatile uint32_t                       *STM_TIM14;
