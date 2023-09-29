@@ -3,15 +3,15 @@
 #include <stdio.h>
 #include <string.h>
 
-#define LED_RCC_ENABLE gpioa_en
+#define LED_RCC_ENABLE gpioaen
 #define LED_PORT STM_gpio_a
 #define LED_PIN pin_5
 
-#define TX_UART_DEBUG_RCC_ENABLE gpioa_en
+#define TX_UART_DEBUG_RCC_ENABLE gpioaen
 #define TX_UART_DEBUG_PORT STM_gpio_a
 #define TX_UART_DEBUG_PIN pin_2
 
-#define RX_UART_DEBUG_RCC_ENABLE gpioa_en
+#define RX_UART_DEBUG_RCC_ENABLE gpioaen
 #define RX_UART_DEBUG_PORT STM_gpio_a
 #define RX_UART_DEBUG_PIN pin_3
 
@@ -99,7 +99,7 @@ rcc_init(void)
     STM_FLASH->acr.prften  = 1;
     while (0b010 != STM_FLASH->acr.latency) {
     }
-    STM_RCC->cfgr.sw   = RCC_sw_pllrclk;
+    STM_RCC->cfgr.sw   = 0b010;
     STM_RCC->cfgr.hpre = 0;
     STM_RCC->cfgr.ppre = 0;
 }
@@ -127,8 +127,8 @@ static void
 millis_init(void)
 {
     // rm0444 r5 p. 629
-    STM_RCC->apbenr1.tim2en                      = 1;
-    GPTIM_peripheral_registers_t volatile *timer = STM_TIM2;
+    STM_RCC->apbenr1.tim2en                     = 1;
+    TIM2_peripheral_registers_t volatile *timer = STM_TIM2;
 
     uint32_t period_ms      = 1;
     uint32_t cycles_per_ms  = (uint32_t)clock_hz / 1000;
