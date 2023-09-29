@@ -23,4 +23,4 @@ add_library(
     src/uart.c
 )
 target_link_libraries(${PROJECT_NAME} PUBLIC c_static_asserts)
-target_include_directories(${PROJECT_NAME} PUBLIC include)
+target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC include)
