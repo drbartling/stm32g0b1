@@ -5,6 +5,7 @@ extern "C" {
 #endif
 
 #include "stm32g0b1/stm_adc.h"
+#include "stm32g0b1/stm_basic_timer.h"
 #include "stm32g0b1/stm_flash.h"
 #include "stm32g0b1/stm_gp_timer.h"
 #include "stm32g0b1/stm_gpio.h"
@@ -65,8 +66,8 @@ extern volatile stm_gpio_port_t *STM_gpio_f;
 extern volatile TIM2_peripheral_registers_t    *STM_TIM2;
 extern volatile TIM2_peripheral_registers_t    *STM_TIM3;
 extern volatile TIM2_peripheral_registers_t    *STM_TIM4;
-extern volatile uint32_t                       *STM_TIM6;
-extern volatile uint32_t                       *STM_TIM7;
+extern volatile TIM6_peripheral_registers_t    *STM_TIM6;
+extern volatile TIM6_peripheral_registers_t    *STM_TIM7;
 extern volatile uint32_t                       *STM_TIM14;
 extern volatile uint32_t                       *STM_RTC;
 extern volatile uint32_t                       *STM_WWDG;
