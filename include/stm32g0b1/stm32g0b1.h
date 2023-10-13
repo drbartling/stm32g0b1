@@ -6,6 +6,8 @@ extern "C" {
 
 #include "stm32g0b1/stm_adc.h"
 #include "stm32g0b1/stm_basic_timer.h"
+#include "stm32g0b1/stm_dma1.h"
+#include "stm32g0b1/stm_dmamux.h"
 #include "stm32g0b1/stm_flash.h"
 #include "stm32g0b1/stm_gp_timer.h"
 #include "stm32g0b1/stm_gpio.h"
@@ -96,6 +98,9 @@ extern volatile uint32_t                       *STM_TIM15;
 extern volatile uint32_t                       *STM_TIM16;
 extern volatile uint32_t                       *STM_TIM17;
 extern volatile uint32_t                       *STM_DBG;
+extern volatile DMA1_peripheral_registers_t    *STM_DMA1;
+extern volatile DMA1_peripheral_registers_t    *STM_DMA2;
+extern volatile DMAMUX_peripheral_registers_t  *STM_DMAMUX;
 extern volatile uint32_t                       *STM_EXTI;
 extern volatile uint32_t                       *STM_CRC;
 extern volatile uint32_t                       *STM_RNG;
