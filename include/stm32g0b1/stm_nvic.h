@@ -203,7 +203,7 @@ typedef struct {
     void *reserved_0x00A0;         // 0x00A0
     void *reserved_0x00A4;         // 0x00A4
     void *reserved_0x00A8;         // 0x00A8
-    void *usart1;                  // 0x00AC
+    void *usart_1;                 // 0x00AC
     void *usart_2_lpuart_2;        // 0x00B0
     void *usart_3_4_5_6_lpuart_1;  // 0x00B4
     void *reserved_0x00B8;         // 0x00B8
