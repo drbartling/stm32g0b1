@@ -192,7 +192,7 @@ typedef struct {
     void *reserved_0x0074;         // 0x0074
     void *reserved_0x0078;         // 0x0078
     void *tim2_handler;            // 0x007C
-    void *tim3_tim4_handler;         // 0x0080
+    void *tim3_tim4_handler;       // 0x0080
     void *reserved_0x0084;         // 0x0084
     void *reserved_0x0088;         // 0x0088
     void *reserved_0x008C;         // 0x008C
@@ -203,7 +203,7 @@ typedef struct {
     void *reserved_0x00A0;         // 0x00A0
     void *reserved_0x00A4;         // 0x00A4
     void *reserved_0x00A8;         // 0x00A8
-    void *reserved_0x00AC;         // 0x00AC
+    void *usart1;                  // 0x00AC
     void *usart_2_lpuart_2;        // 0x00B0
     void *usart_3_4_5_6_lpuart_1;  // 0x00B4
     void *reserved_0x00B8;         // 0x00B8
