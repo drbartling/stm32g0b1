@@ -84,6 +84,7 @@ extern volatile uint32_t                       *STM_CRS;
 extern volatile uint32_t                       *STM_PWR;
 extern volatile uint32_t                       *STM_DAC;
 extern volatile uint32_t                       *STM_CEC;
+extern volatile LPTIM1_peripheral_registers_t  *STM_LPTIM1;
 extern volatile LPTIM1_peripheral_registers_t  *STM_LPTIM2;
 extern volatile uint32_t                       *STM_UCPD1;
 extern volatile uint32_t                       *STM_UCPD2;
