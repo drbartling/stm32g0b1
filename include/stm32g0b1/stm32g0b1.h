@@ -44,8 +44,9 @@ extern "C" {
 #define STSRAM_SIZE (144 * 1024)
 #define STSRAM_END (STSRAM_BASE + STSRAM_SIZE)
 
-extern volatile NVIC_Type *NVIC_registers;
-extern volatile SCB_Type  *SCB_registers;
+extern volatile SYSTICK_Type *SYSTICK_registers;
+extern volatile NVIC_Type    *NVIC_registers;
+extern volatile SCB_Type     *SCB_registers;
 
 extern volatile RCC_peripheral_registers_t *STM_RCC;
 extern volatile FLASH_registers_t          *STM_FLASH;
