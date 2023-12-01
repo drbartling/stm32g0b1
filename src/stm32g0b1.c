@@ -2,9 +2,9 @@
 
 // rm0444 r5 pp. 63-64
 // pm0223 r6 p. 81
-uint32_t volatile  *SYSTICK_registers = (void *)(0xE000E010UL);
-NVIC_Type volatile *NVIC_registers    = (void *)(0xE000E100UL);
-SCB_Type volatile  *SCB_registers     = (void *)(0xE000ED00UL);
+SYSTICK_Type volatile *SYSTICK_registers = (void *)(0xE000E010UL);
+NVIC_Type volatile    *NVIC_registers    = (void *)(0xE000E100UL);
+SCB_Type volatile     *SCB_registers     = (void *)(0xE000ED00UL);
 
 // rm0444 r5 pp. 63-64
 TIM2_peripheral_registers_t volatile    *STM_TIM2    = (void *)(0x40000000UL);

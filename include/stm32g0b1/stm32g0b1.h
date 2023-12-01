@@ -16,6 +16,7 @@ extern "C" {
 #include "stm32g0b1/stm_rcc.h"
 #include "stm32g0b1/stm_scb.h"
 #include "stm32g0b1/stm_spi.h"
+#include "stm32g0b1/stm_systick.h"
 #include "stm32g0b1/stm_timer1.h"
 #include "stm32g0b1/stm_usart.h"
 #include "stm32g0b1/stm_vrefbuf.h"
