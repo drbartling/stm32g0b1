@@ -41,7 +41,7 @@ STATIC_ASSERT_TYPE_SIZE(STK_cvr_t, sizeof(uint32_t));
 
 typedef union {
     struct {
-        uint32_t current : 24;
+        uint32_t tenms : 24;
         uint32_t reserved_24 : 6;
         uint32_t skew : 1;
         uint32_t no_ref : 1;
