@@ -16,6 +16,7 @@ extern "C" {
 #include "stm32g0b1/stm_rcc.h"
 #include "stm32g0b1/stm_scb.h"
 #include "stm32g0b1/stm_spi.h"
+#include "stm32g0b1/stm_systick.h"
 #include "stm32g0b1/stm_timer1.h"
 #include "stm32g0b1/stm_usart.h"
 #include "stm32g0b1/stm_vrefbuf.h"
@@ -43,8 +44,9 @@ extern "C" {
 #define STSRAM_SIZE (144 * 1024)
 #define STSRAM_END (STSRAM_BASE + STSRAM_SIZE)
 
-extern volatile NVIC_Type *NVIC_registers;
-extern volatile SCB_Type  *SCB_registers;
+extern volatile SYSTICK_Type *SYSTICK_registers;
+extern volatile NVIC_Type    *NVIC_registers;
+extern volatile SCB_Type     *SCB_registers;
 
 extern volatile RCC_peripheral_registers_t *STM_RCC;
 extern volatile FLASH_registers_t          *STM_FLASH;
