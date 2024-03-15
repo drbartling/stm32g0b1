@@ -6,6 +6,7 @@ extern "C" {
 
 #include "static_assert.h"
 
+#include <stdbool.h>
 #include <stdint.h>
 
 typedef union {
@@ -499,6 +500,8 @@ STATIC_ASSERT_MEMBER_OFFSET(ADC_peripheral_registers_t, ccr, 0x308);
 
 void    ADC_init(void);
 int16_t read_adc(ADC_chselr_t const);
+bool    ADC_lock(void);
+void    ADC_release(void);
 void    ADC_isr(void);
 
 #ifdef __cplusplus
