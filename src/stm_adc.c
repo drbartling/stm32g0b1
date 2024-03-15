@@ -73,16 +73,17 @@ ADC_isr(void)
 int16_t
 read_adc(ADC_chselr_t const chselr)
 {
-    wait_timeout(STM_ADC1->cr.addis, 1000, -1);
+    int const adc_timout_counter = 100;
+    wait_timeout(STM_ADC1->cr.addis, adc_timout_counter, -1);
 
     STM_ADC1->chselr.bits = chselr.bits;
-    wait_timeout(0 == STM_ADC1->isr.ccrdy, 1000, -2);
+    wait_timeout(0 == STM_ADC1->isr.ccrdy, adc_timout_counter, -2);
     STM_ADC1->isr.ccrdy = 0;
     STM_ADC1->smpr.smp1 = ADC_smp_79p5_cycles;
 
     STM_ADC1->isr.adrdy = 1;
     STM_ADC1->cr.aden   = 1;
-    wait_timeout(0 == STM_ADC1->isr.adrdy, 1000, -3);
+    wait_timeout(0 == STM_ADC1->isr.adrdy, adc_timout_counter, -3);
 
     // Clear ADC interrupt flags by writing 1 to them
     STM_ADC1->isr.eos = 1;
@@ -91,11 +92,11 @@ read_adc(ADC_chselr_t const chselr)
 
     STM_ADC1->cr.adstart = 1;
 
-    wait_timeout(0 == STM_ADC1->isr.eoc, 1000, -4);
-    wait_timeout(0 == STM_ADC1->isr.eos, 1000, -5);
+    wait_timeout(0 == STM_ADC1->isr.eoc, adc_timout_counter, -4);
+    wait_timeout(0 == STM_ADC1->isr.eos, adc_timout_counter, -5);
 
     uint16_t result = STM_ADC1->dr.data;
-    wait_timeout(1 == STM_ADC1->isr.eoc, 1000, -6);
+    wait_timeout(1 == STM_ADC1->isr.eoc, adc_timout_counter, -6);
     // clear end of conversion and end of sequence bits by writing 1
     STM_ADC1->isr.eos = 1;
 
