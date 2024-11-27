@@ -85,6 +85,45 @@ typedef union {
 } FLASH_cr_t;
 STATIC_ASSERT_TYPE_SIZE(FLASH_cr_t, sizeof(uint32_t));
 
+typedef union {
+    struct {
+        uint32_t rdp : 8;
+        uint32_t bor_en : 1;
+        uint32_t borr_lev : 2;
+        uint32_t borf_lev : 2;
+        uint32_t nrst_stop : 1;
+        uint32_t nrst_stdby : 1;
+        uint32_t nrst_shdw : 1;
+        uint32_t iwdg_sw : 1;
+        uint32_t iwdg_stop : 1;
+        uint32_t iwdg_stdby : 1;
+        uint32_t wwdg_sw : 1;
+        uint32_t swap_bank : 1;
+        uint32_t dual_bank : 1;
+        uint32_t ram_parity_check : 1;
+        uint32_t reserved_23 : 1;
+        uint32_t nboot_sel : 1;
+        uint32_t nboot1 : 1;
+        uint32_t nboot0 : 1;
+        uint32_t nrst_mode : 1;
+        uint32_t irhen : 1;
+        uint32_t reserved_30 : 2;
+    };
+    uint32_t bits;
+} FLASH_optr_t;
+
+typedef union {
+    struct {
+        uint32_t sec_size : 8;
+        uint32_t reserved_8 : 8;
+        uint32_t boot_lock : 1;
+        uint32_t reserved_17 : 3;
+        uint32_t sec_size2 : 8;
+        uint32_t reserved_28 : 4;
+    };
+    uint32_t bits;
+} FLASH_secr_t;
+
 typedef struct {
     FLASH_acr_t volatile acr;
     uint32_t reserved1;
@@ -94,7 +133,7 @@ typedef struct {
     FLASH_cr_t volatile cr;
     uint32_t volatile eccr;
     uint32_t volatile ecc2r;
-    uint32_t volatile optr;
+    FLASH_optr_t volatile optr;
     uint32_t volatile pcrop1asr;
     uint32_t volatile pcrop1aer;
     uint32_t volatile wrp1ar;
@@ -109,7 +148,7 @@ typedef struct {
     uint32_t volatile pcrop2bsr;
     uint32_t volatile pcrop2ber;
     uint32_t reserved7[9];
-    uint32_t volatile secr;
+    FLASH_secr_t volatile secr;
 } FLASH_registers_t;
 
 /**
@@ -135,6 +174,11 @@ FLASH_sr_t FLASH_write_data_no_erase(int32_t /*address*/, void const * /*data*/,
  *             unwanted operations due, for example, to electric disturbances.
  */
 void FLASH_unlock(void);
+
+/**
+ * @brief Secure access to flash from the beginning up to the specified address
+ */
+void FLASH_secure(int32_t address);
 
 FLASH_sr_t FLASH_write_page(int32_t, void const *);
 void       FLASH_erase_page(int16_t);

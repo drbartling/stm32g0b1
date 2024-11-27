@@ -124,8 +124,8 @@ FLASH_write_data_no_erase(int32_t address, void const *data, int32_t size)
     uint64_t       *destination       = (void *)address;
     for (int i = 0; i < double_word_count; i++) {
         uint64_t double_word;
-        memcpy(&double_word, double_words+i, sizeof(double_word));
-        if (FLASH_write_double_word(&destination[i],double_word)) {
+        memcpy(&double_word, double_words + i, sizeof(double_word));
+        if (FLASH_write_double_word(&destination[i], double_word)) {
             return STM_FLASH->sr;
         }
     }
@@ -188,6 +188,22 @@ FLASH_unlock(void)
         STM_FLASH->keyr = 0x45670123;
         STM_FLASH->keyr = 0XCDEF89AB;
     }
+}
+
+void
+FLASH_secure(int32_t const address)
+{
+    if (0 < address) {
+        int16_t const      page = FLASH_page_number_from_address(address);
+        FLASH_bker_t const bank = FLASH_bank_from_page(page);
+        if (FLASH_bker_bank2 == bank) {
+            return;
+        }
+        STM_FLASH->secr.sec_size  = (uint8_t)page;
+        STM_FLASH->secr.boot_lock = 1;
+        STM_FLASH->cr.sec_prot    = 1;
+    }
+    STM_FLASH->optr.rdp = 0xBB;
 }
 
 static bool
