@@ -4,7 +4,7 @@ on: push
 
 jobs:
   examples:
-    runs-on: [self-hosted, linux]
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
     steps:
