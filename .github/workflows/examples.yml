@@ -10,10 +10,5 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag stm32g0b1
-    - name: Run the docker image to build the application
-      run: docker run --name "stm32g0b1-examples" stm32g0b1
-    - name: Remove container
-      if: always()
-      run: docker rm stm32g0b1-examples
+    - name: Build
+      run: make
