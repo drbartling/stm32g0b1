@@ -22,4 +22,4 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag stm32g0b1
     - name: Run the docker image to build the application
-      run: docker run --name "stm32g0b1-examples" stm32g0b1
+      run: docker run --rm --name "stm32g0b1-examples" stm32g0b1

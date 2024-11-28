@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM ubuntu:23.10
+FROM ubuntu:24.04
 
 RUN apt update \
     && apt upgrade -y \
