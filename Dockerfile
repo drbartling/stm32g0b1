@@ -10,8 +10,8 @@ RUN apt update \
     cmake \
     curl \
     git \
+    just \
     llvm \
-    make \
     ninja-build \
     python-is-python3 \
     python3-pip \
