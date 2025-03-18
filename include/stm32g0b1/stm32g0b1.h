@@ -11,6 +11,7 @@ extern "C" {
 #include "stm32g0b1/stm_flash.h"
 #include "stm32g0b1/stm_gp_timer.h"
 #include "stm32g0b1/stm_gpio.h"
+#include "stm32g0b1/stm_i2c.h"
 #include "stm32g0b1/stm_lptimer1.h"
 #include "stm32g0b1/stm_nvic.h"
 #include "stm32g0b1/stm_rcc.h"
@@ -77,8 +78,8 @@ extern volatile uint32_t                       *STM_TIM14;
 extern volatile uint32_t                       *STM_RTC;
 extern volatile uint32_t                       *STM_WWDG;
 extern volatile uint32_t                       *STM_IWDG;
-extern volatile uint32_t                       *STM_I2C1;
-extern volatile uint32_t                       *STM_I2C2;
+extern volatile I2C1_peripheral_registers_t    *STM_I2C1;
+extern volatile I2C1_peripheral_registers_t    *STM_I2C2;
 extern volatile uint32_t                       *STM_USB;
 extern volatile uint32_t                       *STM_FDCAN1;
 extern volatile uint32_t                       *STM_FDCAN2;
