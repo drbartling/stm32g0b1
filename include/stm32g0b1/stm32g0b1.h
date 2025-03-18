@@ -22,6 +22,7 @@ extern "C" {
 #include "stm32g0b1/stm_usart.h"
 #include "stm32g0b1/stm_vrefbuf.h"
 #include "stm32g0b1/uart.h"
+#include "stm32g0b1/i2c.h"
 
 #include <stdint.h>
 
@@ -44,6 +45,11 @@ extern "C" {
 #define STSRAM_BASE (0x20000000)
 #define STSRAM_SIZE (144 * 1024)
 #define STSRAM_END (STSRAM_BASE + STSRAM_SIZE)
+
+typedef enum {
+    BIT_CLEAR   = 0U,
+    BIT_SET     = 1U,
+};
 
 extern volatile SYSTICK_Type *SYSTICK_registers;
 extern volatile NVIC_Type    *NVIC_registers;
